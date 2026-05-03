@@ -7,65 +7,68 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#inicio">🏠 Inicio</a></li>
-        <li><a href="#instrucciones">📜 Instrucciones</a></li>
-        <li><a href="#galeria">🖼️ Galería</a></li>
-        <li><a href="#creditos">✨ Créditos</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="layout">
+    <!-- 🎮 Columna izquierda: juego -->
+    <section id="inicio">
+      <div class="infoBar">
+        <p>🍺 Caguamas: <span id="solesCount">0</span></p>
+        <p>🌱 Plantas disponibles: Alcoholico, Camote, Chicharito</p>
+        <button onclick="plantar('alcoholico')">🌻 Alcoholico</button>
+        <button onclick="plantar('camote')">🥔 Camote</button>
+        <button onclick="plantar('chicharito')">🌱 Chicharito</button>
+      </div>
+      <canvas id="gameCanvas"></canvas>
+    </section>
 
-  <!-- 🎮 Contenedor del juego -->
-  <section id="inicio">
-    <div class="infoBar">
-      <p>🍺 Caguamas: <span id="solesCount">0</span></p>
-      <p>🌱 Plantas disponibles: Alcoholico, Camote, Chicharito</p>
-      <button onclick="plantar('alcoholico')">🌻 Alcoholico</button>
-      <button onclick="plantar('camote')">🥔 Camote</button>
-      <button onclick="plantar('chicharito')">🌱 Chicharito</button>
-    </div>
-    <canvas id="gameCanvas"></canvas>
-  </section>
+    <!-- 📜 Columna derecha: menú + info -->
+    <aside>
+      <nav>
+        <ul>
+          <li><a href="#inicio">🏠 Inicio</a></li>
+          <li><a href="#instrucciones">📜 Instrucciones</a></li>
+          <li><a href="#galeria">🖼️ Galería</a></li>
+          <li><a href="#creditos">✨ Créditos</a></li>
+        </ul>
+      </nav>
 
-  <!-- 📜 Instrucciones -->
-  <section id="instrucciones">
-    <h2>📜 Instrucciones</h2>
-    <p>Defiende tu jardín de los gatos enemigos usando tus plantas:</p>
-    <ul>
-      <li>🌻 Alcoholico: genera caguamas (soles).</li>
-      <li>🥔 Camote: aguanta daño como muro.</li>
-      <li>🌱 Chicharito: dispara guisantes.</li>
-    </ul>
-    <p>Usa las caguamas para plantar más defensas y evita que los gatos lleguen al lado izquierdo.</p>
-  </section>
+      <section id="instrucciones">
+        <h2>📜 Instrucciones</h2>
+        <p>Defiende tu jardín de los gatos enemigos usando tus plantas:</p>
+        <ul>
+          <li>🌻 Alcoholico: genera caguamas (soles).</li>
+          <li>🥔 Camote: aguanta daño como muro.</li>
+          <li>🌱 Chicharito: dispara guisantes.</li>
+        </ul>
+        <p>Usa las caguamas para plantar más defensas y evita que los gatos lleguen al lado izquierdo.</p>
+      </section>
 
-  <!-- 🖼️ Galería de sprites -->
-  <section id="galeria">
-    <h2>🖼️ Galería de Sprites</h2>
-    <div class="galeria">
-      <img src="assets/alcoholico.jpg" alt="Alcoholico" />
-      <img src="assets/camote.jpg" alt="Camote" />
-      <img src="assets/chicharito.jpg" alt="Chicharito" />
-      <img src="assets/gatoNormal.jpg" alt="Gato Normal" />
-      <img src="assets/gatoBandera.jpg" alt="Gato Bandera" />
-      <img src="assets/gatoCono.jpg" alt="Gato Cono" />
-      <img src="assets/gatoCubeta.jpg" alt="Gato Cubeta" />
-    </div>
-  </section>
-  <section id="creditos">
-    <h2>Créditos mamalones we</h2>
-    <p>Juego creado por mi xd con ayuda de Copilot.</p>
-  </section>
-  <footer>
-    <p>Contacto: <a href="mailto:treintademarzodeldosmil@gmail.com">treintademarzodeldosmil@gmail.com</a></p>
-    <p>© 2026 Plantas vs Gatos</p>
-  </footer>
+      <section id="galeria">
+        <h2>🖼️ Galería de Sprites</h2>
+        <div class="galeria">
+          <img src="assets/alcoholico.jpg" alt="Alcoholico" />
+          <img src="assets/camote.jpg" alt="Camote" />
+          <img src="assets/chicharito.jpg" alt="Chicharito" />
+          <img src="assets/gatoNormal.jpg" alt="Gato Normal" />
+          <img src="assets/gatoBandera.jpg" alt="Gato Bandera" />
+          <img src="assets/gatoCono.jpg" alt="Gato Cono" />
+          <img src="assets/gatoCubeta.jpg" alt="Gato Cubeta" />
+        </div>
+      </section>
+
+      <section id="creditos">
+        <h2>Créditos mamalones we</h2>
+        <p>Juego creado por mi xd con ayuda de Copilot.</p>
+      </section>
+
+      <footer>
+        <p>Contacto: <a href="mailto:treintademarzodeldosmil@gmail.com">treintademarzodeldosmil@gmail.com</a></p>
+        <p>© 2026 Plantas vs Gatos</p>
+      </footer>
+    </aside>
+  </div>
+
   <script src="main.js"></script>
   <script>
-    // Función para plantar personajes
     function plantar(tipo) {
       const x = Math.floor(Math.random() * 5) * 100;
       const y = Math.floor(Math.random() * 5) * 100;
@@ -77,8 +80,6 @@
         plantas.push(new Chicharito(x, y));
       }
     }
-
-    // Actualizar soles en la interfaz
     setInterval(() => {
       document.getElementById("solesCount").innerText = soles;
     }, 500);
