@@ -203,3 +203,17 @@ function startGame() {
 }
 
 startGame();
+
+function plantar(tipo) {
+  // Calcula una celda de la cuadrícula (100px)
+  const x = Math.floor(Math.random() * 5) * 100;
+  const y = Math.floor(Math.random() * 5) * 100;
+
+  if (tipo === "alcoholico") {
+    plantas.push(new Alcoholico(x, y));
+  } else if (tipo === "camote") {
+    plantas.push(new Camote(x, y));
+  } else if (tipo === "chicharito") {
+    plantas.push(new Chicharito(x, y));
+  }
+}
