@@ -10,15 +10,14 @@
   <div class="layout">
     <!-- 🎮 Columna izquierda: juego -->
     <section id="inicio">
-  <div class="infoBar">
-    <p>🍺 Caguamas: <span id="solesCount">0</span></p>
-    <button onclick="plantar('alcoholico')">🌻 Alcoholico</button>
-    <button onclick="plantar('camote')">🥔 Camote</button>
-    <button onclick="plantar('chicharito')">🌱 Chicharito</button>
-  </div>
+      <div class="infoBar">
+        <p>🍺 Caguamas: <span id="solesCount">0</span></p>
+        <button onclick="plantar('alcoholico')">🌻 Alcoholico</button>
+        <button onclick="plantar('camote')">🥔 Camote</button>
+        <button onclick="plantar('chicharito')">🌱 Chicharito</button>
+      </div>
 
-  <canvas id="gameCanvas"></canvas>
-
+      <canvas id="gameCanvas"></canvas>
     </section>
 
     <!-- 📜 Columna derecha: menú + info -->
@@ -58,7 +57,7 @@
 
       <section id="creditos">
         <h2>Créditos mamalones we</h2>
-        <p>Juego creado por mi xd con ayuda de Copilot.</p>
+        <p>Juego creado por mí xd con ayuda de Copilot.</p>
       </section>
 
       <footer>
@@ -68,22 +67,6 @@
     </aside>
   </div>
 
-  <script src="main.js"></script>
-  <script>
-    function plantar(tipo) {
-      const x = Math.floor(Math.random() * 5) * 100;
-      const y = Math.floor(Math.random() * 5) * 100;
-      if (tipo === "alcoholico") {
-        plantas.push(new Alcoholico(x, y));
-      } else if (tipo === "camote") {
-        plantas.push(new Camote(x, y));
-      } else if (tipo === "chicharito") {
-        plantas.push(new Chicharito(x, y));
-      }
-    }
-    setInterval(() => {
-      document.getElementById("solesCount").innerText = soles;
-    }, 500);
   <script src="main.js"></script>
 </body>
 </html>
