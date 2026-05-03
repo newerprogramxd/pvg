@@ -60,6 +60,8 @@ function drawGrid() {
   }
 }
 
+let caguamas = [];
+
 // 🔹 Clases
 class Alcoholico {
   constructor(x, y) {
@@ -78,12 +80,13 @@ class Alcoholico {
   update() {
     this.cooldown++;
     if (this.cooldown > 200) {
-      soles += 50;
+      caguamas.push({x: this.x + 20, y: this.y + 20, size: 40});
       this.cooldown = 0;
     }
     this.draw();
   }
 }
+
 
 class Camote {
   constructor(x, y) {
@@ -198,10 +201,9 @@ function updateGame() {
 }
 
 function startGame() {
-  intervalId = setInterval(spawnGato, 3000);
+  intervalId = setInterval(spawnGato, 3000); // cada 3 segundos
   updateGame();
 }
-
 startGame();
 
 function plantar(tipo) {
