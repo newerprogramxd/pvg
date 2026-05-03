@@ -16,15 +16,16 @@ const sprites = {
   fondo: new Image()
 };
 
-sprites.alcoholico.src = "assets/alcoholico.jpg";
-sprites.camote.src = "assets/camote.jpg";
-sprites.chicharito.src = "assets/chicharito.jpg";
-sprites.gatoNormal.src = "assets/gatoNormal.jpg";
-sprites.gatoBandera.src = "assets/gatoBandera.jpg";
-sprites.gatoCono.src = "assets/gatoCono.jpg";
-sprites.gatoCubeta.src = "assets/gatoCubeta.jpg";
-sprites.caguama.src = "assets/caguama.jpg";
-sprites.guisante.src = "assets/guisante.jpg";
+// Usa tus .gif reales cuando los tengas
+sprites.alcoholico.src = "assets/alcoholico.gif";
+sprites.camote.src = "assets/camote.gif";
+sprites.chicharito.src = "assets/chicharito.gif";
+sprites.gatoNormal.src = "assets/gatoNormal.gif";
+sprites.gatoBandera.src = "assets/gatoBandera.gif";
+sprites.gatoCono.src = "assets/gatoCono.gif";
+sprites.gatoCubeta.src = "assets/gatoCubeta.gif";
+sprites.caguama.src = "assets/caguama.gif";
+sprites.guisante.src = "assets/guisante.gif";
 sprites.fondo.src = "assets/02.jpeg";
 
 let soles = 0;
@@ -33,6 +34,33 @@ let gatos = [];
 let proyectiles = [];
 let intervalId;
 
+// 🔹 Barra de vida
+function drawHealthBar(x, y, width, hp, maxHp) {
+  ctx.fillStyle = "red";
+  ctx.fillRect(x, y - 10, width, 5);
+  ctx.fillStyle = "green";
+  ctx.fillRect(x, y - 10, (width * hp) / maxHp, 5);
+}
+
+// 🔹 Cuadrícula
+function drawGrid() {
+  const cellSize = 100;
+  ctx.strokeStyle = "rgba(0,0,0,0.2)";
+  for (let x = 0; x < canvas.width; x += cellSize) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+  for (let y = 0; y < canvas.height; y += cellSize) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+}
+
+// 🔹 Clases
 class Alcoholico {
   constructor(x, y) {
     this.x = x;
@@ -40,15 +68,17 @@ class Alcoholico {
     this.width = 80;
     this.height = 80;
     this.hp = 100;
+    this.maxHp = 100;
     this.cooldown = 0;
   }
   draw() {
     ctx.drawImage(sprites.alcoholico, this.x, this.y, this.width, this.height);
+    drawHealthBar(this.x, this.y, this.width, this.hp, this.maxHp);
   }
   update() {
     this.cooldown++;
     if (this.cooldown > 200) {
-      soles += 50; 
+      soles += 50;
       this.cooldown = 0;
     }
     this.draw();
@@ -62,13 +92,13 @@ class Camote {
     this.width = 80;
     this.height = 80;
     this.hp = 300;
+    this.maxHp = 300;
   }
   draw() {
     ctx.drawImage(sprites.camote, this.x, this.y, this.width, this.height);
+    drawHealthBar(this.x, this.y, this.width, this.hp, this.maxHp);
   }
-  update() {
-    this.draw();
-  }
+  update() { this.draw(); }
 }
 
 class Chicharito {
@@ -78,10 +108,12 @@ class Chicharito {
     this.width = 80;
     this.height = 80;
     this.hp = 100;
+    this.maxHp = 100;
     this.cooldown = 0;
   }
   draw() {
     ctx.drawImage(sprites.chicharito, this.x, this.y, this.width, this.height);
+    drawHealthBar(this.x, this.y, this.width, this.hp, this.maxHp);
   }
   update() {
     this.cooldown++;
@@ -118,10 +150,12 @@ class Gato {
     this.height = 80;
     this.speed = 1;
     this.hp = tipo === "cubeta" ? 300 : tipo === "cono" ? 200 : 100;
+    this.maxHp = this.hp;
     this.sprite = sprites["gato" + tipo.charAt(0).toUpperCase() + tipo.slice(1)];
   }
   draw() {
     ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+    drawHealthBar(this.x, this.y, this.width, this.hp, this.maxHp);
   }
   update() {
     this.x -= this.speed;
@@ -129,6 +163,7 @@ class Gato {
   }
 }
 
+// 🔹 Spawner
 function spawnGato() {
   const tipos = ["Normal", "Bandera", "Cono", "Cubeta"];
   const tipo = tipos[Math.floor(Math.random() * tipos.length)];
@@ -136,8 +171,10 @@ function spawnGato() {
   gatos.push(new Gato(tipo.toLowerCase(), y));
 }
 
+// 🔹 Loop principal
 function updateGame() {
   ctx.drawImage(sprites.fondo, 0, 0, canvas.width, canvas.height);
+  drawGrid(); // cuadrícula
 
   plantas.forEach(p => p.update());
   proyectiles.forEach((proj, i) => {
